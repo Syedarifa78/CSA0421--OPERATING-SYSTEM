@@ -1,0 +1,39 @@
+#include <stdio.h>
+
+int main() {
+    int n, start, length, i;
+    int disk[50] = {0};
+
+    printf("Enter number of files: ");
+    scanf("%d", &n);
+
+    for (i = 1; i <= n; i++) {
+        printf("\nFile %d start block: ", i);
+        scanf("%d", &start);
+
+        printf("File %d length: ", i);
+        scanf("%d", &length);
+
+        int j, flag = 1;
+        for (j = start; j < start + length; j++) {
+            if (disk[j] == 1) {
+                flag = 0;
+                break;
+            }
+        }
+
+        if (flag == 1) {
+            for (j = start; j < start + length; j++)
+                disk[j] = 1;
+
+            printf("File %d allocated blocks: ", i);
+            for (j = start; j < start + length; j++)
+                printf("%d ", j);
+            printf("\n");
+        } else {
+            printf("File %d cannot be allocated (blocks already occupied)\n", i);
+        }
+    }
+
+    return 0;
+}
