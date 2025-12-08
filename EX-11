@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+int main() {
+    int f[10], p[50], nf, np, i, j, k, pf = 0, pos = 0;
+
+    printf("Frames: ");
+    scanf("%d", &nf);
+    printf("Pages: ");
+    scanf("%d", &np);
+
+    for (i = 0; i < np; i++) scanf("%d", &p[i]);
+    for (i = 0; i < nf; i++) f[i] = -1;
+
+    printf("\nPage\tFrames\tFault\n");
+
+    for (i = 0; i < np; i++) {
+        int hit = 0;
+        for (j = 0; j < nf; j++)
+            if (f[j] == p[i]) hit = 1;
+
+        if (!hit) {
+            f[pos] = p[i];
+            pos = (pos + 1) % nf;
+            pf++;
+        }
+
+        printf("%d\t", p[i]);
+        for (k = 0; k < nf; k++)
+            f[k] == -1 ? printf("- ") : printf("%d ", f[k]);
+        printf("\t%s\n", hit ? "No" : "Yes");
+    }
+
+    printf("\nTotal Faults = %d\n", pf);
+    return 0;
+}
